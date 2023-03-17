@@ -25,17 +25,16 @@ def clean_dir(output_dir):
         shutil.rmtree(output_dir + file)
 
 
-def generate_long_exposure():
+def generate_long_exposure(input_dir, output_dir):
     thresh = 10
 
-    os.mkdir("/kaggle/working/ground_truth")
-    root = '/kaggle/input/aps360-sky-train-dataset/'
-    exist = os.listdir('/kaggle/working/ground_truth/')
+    os.mkdir(output_dir)
+    root = input_dir
 
     for folder in os.listdir(root):
         for subfolder in os.listdir(root + folder):
             savename = subfolder + '.jpg'
-            if savename in exist:
+            if savename in output_dir:
                 continue
             filenames = os.listdir(root + folder + '/' + subfolder)
             prefix = root + folder + '/' + subfolder + '/'
@@ -49,5 +48,5 @@ def generate_long_exposure():
             laplace_var = cv2.Laplacian(gray_image, cv2.CV_64F).var()
 
             if laplace_var > thresh:
-                long_exposure.save(f"/kaggle/working/ground_truth/{subfolder}.jpg")
+                long_exposure.save(f"{output_dir}/{subfolder}.jpg")
 
