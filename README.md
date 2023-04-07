@@ -1,10 +1,11 @@
 # Predicting Long Exposure Images from Estimated Motion Fields 
 
-We use optical flow encodings to predict long exposure images from short exposure images. 
+We use optical flow encodings to predict long exposure images from a short sequence of standard images. 
 
-We use the pretrained RAFT model (Z. Teed and J. Deng, <arXiv:2003.12039>) to approximate motion fields from a sequence of training images using optical flow fields.
-We then use a convolutional autoencoder to encode these flows and concatenate them with the training images to form the input to a convolutional LSTM autoencoder.
-By concatenating the motion fields with the training images, we are able to learn motion blur patterns from an input sequence of images to generate convincing long exposure images.
+We use the pretrained RAFT model (Z. Teed and J. Deng, <arXiv:2003.12039>) to approximate motion fields from a sequence of training images in the form of optical flows.
+We then use a convolutional autoencoder to encode these flows into a latent space and concatenate these latent vectors with training images.
+The concatenated vector is inputted into convolutional LSTM autoencoder to predict long exposure images. By combining spatio-temporal information from the flow fields and the image,
+we are able to learn motion blur patterns from an input sequence of images and generate convincing long exposure images.
 
 | Sample Image <br/> (1st frame of Input Sequence) | Short Exposure <br/>(Mean of Input Sequence) | ***Generated Long Exposure*** |
 |:------------------------------------------------:|:--------------------------------------------:|:-----------------------------:|
