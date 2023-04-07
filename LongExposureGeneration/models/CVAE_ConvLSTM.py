@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from models.common import MotionEncoder, MotionDecoder, ConvLSTMCell
+from LongExposureGeneration.models.common import MotionEncoder, MotionDecoder, ConvLSTMCell
 
 
 class CVAE(nn.Module):

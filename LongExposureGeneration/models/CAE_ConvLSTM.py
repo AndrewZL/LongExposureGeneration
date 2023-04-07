@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from models.common import ConvLSTMCell
+from LongExposureGeneration.models.common import ConvLSTMCell
 
 
 class CAE(nn.Module):

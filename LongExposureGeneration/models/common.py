@@ -27,12 +27,14 @@ class MotionEncoder(nn.Module):
         else:
             in_dim = 256
         self.fc = nn.Linear(in_dim, out_c)  # latent
+        self.fc_variance = nn.Linear(in_dim, out_c)
 
     def forward(self, x):
         x_c = self.conv_layers(x)
         x_flatten = x_c.view(x.size(0), -1)
         out = self.fc(x_flatten)
-        return out
+        var = self.fc_variance(x_flatten)
+        return out, var
 
 
 class MotionDecoder(nn.Module):

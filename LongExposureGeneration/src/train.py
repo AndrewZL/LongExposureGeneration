@@ -5,12 +5,12 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.optim import Adam
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader
 from torchvision.models.optical_flow import raft_small, Raft_Small_Weights
 
-from data.datasets import SkyDataset
-from models.CAE_ConvLSTM import CAE
-from models.common import MotionEncoder
+from LongExposureGeneration.data import SkyDataset
+from LongExposureGeneration.models.CAE_ConvLSTM import CAE
+from LongExposureGeneration.models import MotionEncoder
 
 from tqdm import tqdm
 
