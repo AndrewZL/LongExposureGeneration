@@ -10,9 +10,31 @@ from torch.utils.data import Dataset
 class SkyDataset(Dataset):
     """
     Dataset class for the "Sky Timelapse Dataset" that returns an input sequence (initial 5 frames)
-    and ground truth long exposure
-
+    and ground truth sequence (10 frames that follow the input sequence)
     """
+    def __init__(self, train_dir, gt_dir):
+        self.train_root = train_dir
+        self.gt_root = gt_dir
+        self.train_dirs = sorted(os.listdir(train_dir))
+        self.gt_dirs = sorted(os.listdir(gt_dir))
+
+    def __len__(self):
+        return len(self.train_dirs)
+
+    def __getitem__(self, idx):
+        train_seq = torch.stack([read_image(os.path.join(self.train_root, self.train_dirs[idx], x)) / 255.0 for x in
+                                 sorted(os.listdir(os.path.join(self.train_root, self.train_dirs[idx])))])
+        gt_seq = torch.stack([read_image(os.path.join(self.gt_root, self.gt_dirs[idx], x)) / 255.0 for x in
+                              sorted(os.listdir(os.path.join(self.gt_root, self.gt_dirs[idx])))])
+        return train_seq, gt_seq
+
+
+class SkyDataset_old(Dataset):
+    """
+    Dataset class for the "Sky Timelapse Dataset" that returns an input sequence (initial 5 frames)
+    and ground truth long exposure
+    """
+
     def __init__(self, train_dir, gt_dir):
         self.train_dir = train_dir
         self.gt_dir = gt_dir
@@ -44,11 +66,12 @@ class SkyDataset(Dataset):
         return train_seq, gt_image
 
 
-class SkyDatasetSequence(Dataset):
+class SkyDatasetSequence_old(Dataset):
     """
     Dataset class for the "Sky Timelapse Dataset" that returns the entire sequence
     and ground truth long exposure
     """
+
     def __init__(self, train_dir, gt_dir):
         self.train_dir = train_dir
         self.gt_dir = gt_dir
@@ -78,4 +101,3 @@ class SkyDatasetSequence(Dataset):
         gt_image = read_image(self.gt[idx]) / 255.0
 
         return gt_seq, gt_image
-
