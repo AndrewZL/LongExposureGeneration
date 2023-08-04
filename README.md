@@ -1,4 +1,4 @@
-# Predicting Long Exposure Images from Estimated Motion Fields 
+# Computational Long Exposure Images from Optical Flow
 
 We use optical flow encodings to predict long exposure images from a short sequence of standard images. 
 
